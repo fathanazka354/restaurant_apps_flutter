@@ -40,16 +40,12 @@ class _DetailRestaurantPageState extends State<DetailRestaurantPage> {
             ResultState<RestoDetailResponse> state = provider.state;
             switch (state.status) {
               case Status.loading:
-                return const CircularProgressIndicator();
+                return const CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red));
               case Status.error:
-                return Center(
+                return const Center(
                     child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: ElevatedButton(
-                    child: const Text('Ulangi lagi'),
-                    onPressed: () {},
-                  ),
-                ));
+                        padding: EdgeInsets.all(16.0), child: Text('')));
               case Status.hasData:
                 Restaurant restaurant = state.data!.restaurant;
                 return Text(restaurant.name);
@@ -62,14 +58,21 @@ class _DetailRestaurantPageState extends State<DetailRestaurantPage> {
           ResultState<RestoDetailResponse> state = provider.state;
           switch (state.status) {
             case Status.loading:
-              return const Center(child: CircularProgressIndicator());
+              return Center(
+                  child: CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.red)));
             case Status.error:
               return Center(
                   child: Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: ElevatedButton(
-                  child: const Text('Ulangi lagi'),
-                  onPressed: () {},
+                child: Column(
+                  children: [
+                    const Text('Tidak ada Internet'),
+                    ElevatedButton(
+                      child: const Text('Ulangi lagi'),
+                      onPressed: () {},
+                    ),
+                  ],
                 ),
               ));
             case Status.hasData:

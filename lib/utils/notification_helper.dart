@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:restoran_app/component/navigation.dart';
 import 'package:restoran_app/data/models/restaurant.dart';
@@ -7,6 +9,7 @@ import 'package:restoran_app/data/response/resto_list_response.dart';
 import 'package:rxdart/rxdart.dart';
 
 final selectNotificationSubject = BehaviorSubject<String>();
+final randomNumber = Random().nextInt(20);
 
 class NotificationHelper {
   static NotificationHelper? _instance;
@@ -33,7 +36,7 @@ class NotificationHelper {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: (String? payload) async {
       if (payload != null) {
-        print('notification payload: ' + payload);
+        debugPrint('notification payload: ' + payload);
       }
       selectNotificationSubject.add(payload ?? 'empty payload');
     });
@@ -60,7 +63,7 @@ class NotificationHelper {
         iOS: iOSPlatformChannelSpecifics);
 
     var titleNotification = "<b>Recipe Restaurants</b>";
-    var titleNews = restaurant.restaurants[0].name;
+    var titleNews = restaurant.restaurants[randomNumber].name;
 
     await flutterLocalNotificationsPlugin.show(
         0, titleNotification, titleNews, platformChannelSpecifics,
@@ -71,7 +74,7 @@ class NotificationHelper {
     selectNotificationSubject.stream.listen(
       (String payload) async {
         var data = RestoListResponse.fromJson(json.decode(payload));
-        var article = data.restaurants[0];
+        var article = data.restaurants[randomNumber];
         Navigation.intentWithData(route, article);
       },
     );

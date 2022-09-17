@@ -4,6 +4,7 @@ import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:http/http.dart';
 import 'package:provider/provider.dart';
 import 'package:restoran_app/component/navigation.dart';
 import 'package:restoran_app/data/api/api_service.dart';
@@ -48,7 +49,7 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final NotificationHelper _notificationHelper = NotificationHelper();
 
-  final ApiService _apiService = ApiService();
+  final ApiService _apiService = ApiService(Client());
 
   @override
   void initState() {

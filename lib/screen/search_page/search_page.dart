@@ -47,9 +47,11 @@ class SearchPage extends SearchDelegate<String> {
         ResultState<RestoSearchResponse> state = provider.state;
         switch (state.status) {
           case Status.loading:
-            return const Center(child: CircularProgressIndicator());
+            return const Center(
+                child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red)));
           case Status.error:
-            return const Center(child: Text('Data Kosong'));
+            return const Center(child: Text('Tidak ada internet'));
           case Status.hasData:
             List<Restaurant> restaurants = state.data!.restaurant;
             if (restaurants.isEmpty) {
@@ -74,7 +76,9 @@ class SearchPage extends SearchDelegate<String> {
                         text: restaurants[index]
                             .name
                             .substring(0, restaurants[index].name.length),
-                        style: const TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold),
+                        style: const TextStyle(
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
                         children: [
                       TextSpan(
                           text: restaurants[index]
