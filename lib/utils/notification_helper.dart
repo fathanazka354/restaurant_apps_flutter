@@ -75,7 +75,7 @@ class NotificationHelper {
       (String payload) async {
         var data = RestoListResponse.fromJson(json.decode(payload));
         var article = data.restaurants[randomNumber];
-        Navigation.intentWithData(route, article);
+        Navigation.intentWithData(route, article.id);
       },
     );
   }

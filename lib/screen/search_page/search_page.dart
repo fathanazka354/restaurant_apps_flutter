@@ -31,7 +31,7 @@ class SearchPage extends SearchDelegate<String> {
 
   @override
   Widget buildResults(BuildContext context) {
-    throw Exception('Data Kosong');
+    return listResult();
   }
 
   @override
@@ -42,6 +42,10 @@ class SearchPage extends SearchDelegate<String> {
     } else {
       provider.getDetail("");
     }
+    return listResult();
+  }
+
+  Consumer<RestoSearchProvider> listResult() {
     return Consumer<RestoSearchProvider>(
       builder: (context, provider, _) {
         ResultState<RestoSearchResponse> state = provider.state;
